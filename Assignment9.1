@@ -1,0 +1,15 @@
+1) cmny = load 'a.txt' using PigStorage(',')as  (district_id:chararray,distributer_name:chararray,buy_rate:chararray, sell_rate:chararray,volume_in:int,volume_out:int,year:int);
+
+cmny_volume_sum = foreach cmny_group Generate (cmny.district_id,cmny.volume_in),SUM(cmny.volume_in);
+
+cmny_volume_sum = foreach cmny_group Generate (cmny.district_id,cmny.volume_in),SUM(cmny.volume_in);
+
+dump student_workpages_sum;
+
+2.out = ORDER cmny by sell_rate DESC;
+  limout = Limit out 10;
+
+3.petrol_out = ORDER by volume_out DESC;
+  lim_petrol_out = Limit petrol_out 10;
+
+4.cmny_volume_MIN = foreach cmny_group Generate (cmny.distributer_name)MIN(cmny.sell_rate);
